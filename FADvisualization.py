@@ -10,11 +10,10 @@ st.set_page_config(
 )
 st.title("Through-Wall Crack Assessment in Pressurized Pipe")
 st.markdown("### FAD analysis using the **Folias factor**.")
-st.markdown(
-    r"$$M_T = \sqrt{1 + 1.255 \left(\frac{c^2}{R t}\right) - 0.0135 \left(\frac{c^4}{(R t)^2}\right)}$$"
-)
-st.markdown(r"$$\sigma_{ref} = M_T \left( \frac{P \cdot R}{t} \right) ; K_I=\sigma \sqrt{\pi c} ; L_r=\frac{\sigma_{ref}}{\sigma_y}; K_r=\frac{K_{I}}{K_{mat}}  $$"
-)
+st.markdown(r"$$M_T = \sqrt{1 + 1.255 \left(\frac{c^2}{R t}\right) - 0.0135 \left(\frac{c^4}{(R t)^2}\right)}$$")
+st.markdown(r"$$\sigma_{ref} = M_T \left( \frac{P \cdot R}{t} \right) ; K_I= M_T \left( \frac{P \cdot R}{t} \right) \sqrt{\pi c} ; L_r=\frac{\sigma_{ref}}{\sigma_y}; K_r=\frac{K_{I}}{K_{mat}}  $$")
+
+
 # Constant pipeline dimensions
 R = 100  # pipeline radius (mm)
 t = 10  # pipeline thickness (mm)
