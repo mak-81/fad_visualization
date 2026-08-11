@@ -56,7 +56,7 @@ Lr_point = sigma / YS
 Kr_point = sigma *  ((np.pi *c / 1000) ** (1 / 2)) / Kmat
 FAL_at_Lr = FAL(np.array([Lr_point]), YS, UTS)[0]
 
-is_safe = Kr_point <= FAL_at_Lr
+is_safe = (Kr_point <= FAL_at_Lr and Lr_point<=1.1)
 
 # --- UI Layout ---
 col1, col2 = st.columns([3, 1])
