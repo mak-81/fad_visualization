@@ -120,8 +120,13 @@ with col2:
     if is_safe:
         st.success("### SAFE")
     else:
-        st.error("### FAIL")
-    
+        if (Kr_point/Lr_point)>(FAL(np.array([.4]), YS, UTS)[0]/.4):
+            st.error("### FAIL, brittle fracture")
+        else:
+            if (Kr_point/Lr_point)<(FAL(np.array([1.09]), YS, UTS)[0]/1.09):
+                st.error("### FAIL, plastic collapse")
+            else:
+                st.error("### FAIL, elastoplastic fracture")
     st.divider()
     st.metric("$\sigma_{ref}$", f"{sigma:.0f} MPa")
     st.metric("$L_r$", f"{Lr_point:.3f}")
