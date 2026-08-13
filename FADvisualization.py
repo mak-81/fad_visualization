@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
-from matplotlib.gridspec import GridSpec
+from matplotlib.patches import Rectangle, Annulus
 import numpy as np
 import streamlit as st
 
@@ -10,10 +9,11 @@ st.set_page_config(
 )
 st.title("Through-Wall Crack Assessment in Pressurized Pipe")
 st.markdown("### FAD analysis using the **Folias factor**.")
-st.markdown(r"$$M_T = \sqrt{1 + 1.255 \left(\frac{c^2}{R t}\right) - 0.0135 \left(\frac{c^4}{(R t)^2}\right)}$$")
-st.markdown(r"$$\sigma_{ref} = M_T \left( \frac{P \cdot R}{t} \right) ; K_I= M_T \left( \frac{P \cdot R}{t} \right) \sqrt{\pi c} ; L_r=\frac{\sigma_{ref}}{\sigma_y}; K_r=\frac{K_{I}}{K_{mat}}  $$")
-
-
+st.markdown(
+    r"$$M_T = \sqrt{1 + 1.255 \left(\frac{c^2}{R t}\right) - 0.0135 \left(\frac{c^4}{(R t)^2}\right)}$$"
+)
+st.markdown(r"$$\sigma_{ref} = M_T \left( \frac{P \cdot R}{t} \right) ; K_I= M_T \left( \frac{P \cdot R}{t} \right) \sqrt{\pi c} ; L_r=\frac{\sigma_{ref}}{\sigma_y}; K_r=\frac{K_{I}}{K_{mat}}  $$"
+)
 # Constant pipeline dimensions
 R = 100  # pipeline radius (mm)
 t = 10  # pipeline thickness (mm)
@@ -64,11 +64,18 @@ col1, col2 = st.columns([3, 1])
 with col1:
     # Plot generation
     
-    fig = plt.figure(figsize=(8, 5))
+    fig = plt.figure(figsize=(7, 5))
     fig.suptitle(f"Through-wall crack in pipe (t={t} mm, R={R} mm)")
-    gs = GridSpec(2, 1,  height_ratios=[1, 2])
-    ax2 = fig.add_subplot(gs[0])
-    ax = fig.add_subplot(gs[1])
+    ax = plt.subplot2grid((3, 3), (1, 0), rowspan=2,colspan=3)
+    ax1 = plt.subplot2grid((3, 3), (0, 2))
+    ax2 = plt.subplot2grid((3, 3), (0, 0),colspan=2)
+    
+    
+    
+    #gs = GridSpec(2, 2, width_ratios=[16/5,1], height_ratios=[1, 2])
+    #ax2 = fig.add_subplot(gs[0])
+    #ax1 = fig.add_subplot(gs[1])
+    #ax = fig.add_subplot(gs[2])
     
     
         
@@ -99,20 +106,29 @@ with col1:
     rect3 = Rectangle((.5-c/400, .95), c/200, .05, facecolor='white', edgecolor='black')
     ax2.set_xticks([])
     ax2.set_yticks([])
-    ax2.annotate('', xy=(0, .5), xycoords='axes fraction', xytext=(1, .5),arrowprops=dict(arrowstyle="-", color='k',ls="-."))
+    ax1.set_xticks([])
+    ax1.set_yticks([])
+    ax2.annotate('', xy=(0, .5), xycoords='data', xytext=(1, .5),arrowprops=dict(arrowstyle="-", color='grey',ls="-."))
     ax2.annotate('', xy=(.5-c/400, .9), xycoords='axes fraction', xytext=(.5+c/400, .9),arrowprops=dict(arrowstyle="<->", color='k',ls="-"))
-    ax2.text(.45, .77, 'L=2c='+f"{2*c:.0f} mm",color="black", fontsize=12)
-    ax2.text(.45, .35, "P="+ f"{P:.0f} MPa",color="black", fontsize=10+int(P/5))
-    ax2.text(.02, .1, "$\sigma_{y}=$"+f"{YS:.0f} MPa",color="black", fontsize=11)
+    ax2.text(.45, .75, '2c='+f"{2*c:.0f} mm",color="black", fontsize=12)
+    ax2.text(.5, .5, "P="+ f"{P:.0f} MPa",color="black",horizontalalignment='center',
+     verticalalignment='center', fontsize=10+int(P/5))
+    ax2.text(.03, .1, "$\sigma_{y}=$"+f"{YS:.0f} MPa",color="black", fontsize=11)
     ax2.text(.00, .07, "↙", fontsize=12)
-    ax2.text(.20, .07, "↙", fontsize=12)    
-    ax2.text(.22, .1, "$K_{mat}=$"+f"{Kmat:.0f}"+"MPa·m$^{1/2}$",color="black", fontsize=11)
+    ax2.text(.47, .07, "↙", fontsize=12)    
+    ax2.text(.5, .1, "$K_{mat}=$"+f"{Kmat:.0f}"+"MPa·m$^{1/2}$",color="black", fontsize=11)
     ax2.add_patch(rect1)
     ax2.add_patch(rect2)
     ax2.add_patch(rect3)
-
-
-
+    annulus=Annulus((0.5,0.5), (0.49),0.05,facecolor="grey", edgecolor="black")
+    ax1.add_patch(annulus)
+    ax1.annotate('', xy=(0, .5), xycoords='axes fraction', xytext=(1, .5),arrowprops=dict(arrowstyle="-", color='grey',ls="-."))
+    ax1.annotate('', xy=(.5, 0), xycoords='axes fraction', xytext=(.5, 1),arrowprops=dict(arrowstyle="-", color='grey',ls="-."))
+    ax1.set_frame_on(False)
+    ax2.set_frame_on(False)
+    ax1.set_aspect(1)
+    ax1.text(.5, .5, "P",horizontalalignment='center',
+     verticalalignment='center', color="black", fontsize=20+int(P/5))
     st.pyplot(fig)
 
 with col2:
