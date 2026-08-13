@@ -128,6 +128,7 @@ with col2:
             else:
                 st.error("### FAIL, elastoplastic fracture")
     st.divider()
+    st.metric("$\sigma_{hoop}$", f"{(100*P*R/t)/YS:.1f} %$\sigma_y$")
     st.metric("$\sigma_{ref}$", f"{sigma:.0f} MPa")
     st.metric("$L_r$", f"{Lr_point:.3f}")
     st.metric("$K_r$", f"{Kr_point:.3f}")
