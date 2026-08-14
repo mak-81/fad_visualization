@@ -7,8 +7,8 @@ import streamlit as st
 st.set_page_config(
     page_title="Pipe Crack Assessment", page_icon="🎯", layout="wide"
 )
-st.title("Through-Wall Crack Assessment in Pressurized Pipe")
-st.markdown("### FAD analysis using the **Folias factor**.")
+st.title("Axial through-wall crack assessment in pressurized pipe")
+st.markdown("### FAD analysis using the **Folias factor**, $$M_T$$.")
 st.markdown(
     r"$$M_T = \sqrt{1 + 1.255 \left(\frac{c^2}{R t}\right) - 0.0135 \left(\frac{c^4}{(R t)^2}\right)}$$"
 )
