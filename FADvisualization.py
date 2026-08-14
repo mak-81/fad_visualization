@@ -65,7 +65,7 @@ with col1:
     # Plot generation
     
     fig = plt.figure(figsize=(7, 5))
-    fig.suptitle(f"Through-wall crack in pipe (t={t} mm, R={R} mm)")
+    fig.suptitle(f"Axial through-wall crack in pipe (t={t} mm, R={R} mm)")
     ax = plt.subplot2grid((3, 3), (1, 0), rowspan=2,colspan=3)
     ax1 = plt.subplot2grid((3, 3), (0, 2))
     ax2 = plt.subplot2grid((3, 3), (0, 0),colspan=2)
